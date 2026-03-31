@@ -7,7 +7,6 @@ on:
 
             - '*'
 env:
-	FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 jobs:
     unit-test:
         container: cuaesd/aesd-autotest:24-unit-test
