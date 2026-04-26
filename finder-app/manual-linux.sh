@@ -11,9 +11,9 @@ KERNEL_VERSION=v5.15.163
 BUSYBOX_VERSION=1_33_1
 FINDER_APP_DIR=$(realpath $(dirname $0))
 ARCH=arm64
-#CROSS_COMPILE=aarch64-none-linux-gnu-
-TOOLCHAIN_BIN=$(dirname $(find ~ -name "aarch64-none-linux-gnu-gcc" 2>/dev/null | head -n 1))
-export CROSS_COMPILE=${TOOLCHAIN_BIN}/aarch64-none-linux-gnu-
+CROSS_COMPILE=aarch64-none-linux-gnu-
+#TOOLCHAIN_BIN=$(dirname $(find ~ -name "aarch64-none-linux-gnu-gcc" 2>/dev/null | head -n 1))
+#export CROSS_COMPILE=${TOOLCHAIN_BIN}/aarch64-none-linux-gnu-
 
 if [ $# -lt 1 ]
 then
