@@ -73,7 +73,7 @@ set +e
 echo ${OUTPUTSTRING} | grep "${MATCHSTR}"
 
 ##for assignment 4 part 2
-echo $(OUTPUTSTRING) > /tmp/assignment4-result.txt
+echo ${OUTPUTSTRING} > /tmp/assignment4-result.txt
 ##end
 
 if [ $? -eq 0 ]; then
