@@ -19,6 +19,7 @@ jobs:
           - name: Run unit test
             run: ./unit-test.sh
     full-test:
+<<<<<<< HEAD
         container: cuaesd/aesd-autotest:assignment3
         runs-on: ubuntu-latest
         steps:
@@ -49,3 +50,13 @@ jobs:
             run: |
               ssh-add -D
 >>>>>>> buildroot-assignments-base/master
+=======
+        container: cuaesd/aesd-autotest:24-assignment5
+        runs-on: self-hosted
+        steps:
+          - uses: actions/checkout@v2
+          - name: Checkout submodules
+            run : git submodule update --init --recursive
+          - name: Run full test
+            run: ./full-test.sh
+>>>>>>> assignments-base/assignment5
