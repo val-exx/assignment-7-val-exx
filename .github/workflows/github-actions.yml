@@ -5,7 +5,6 @@ on:
             - '*'
         branches:
             - '*'
-<<<<<<< HEAD
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 jobs:
@@ -19,8 +18,7 @@ jobs:
           - name: Run unit test
             run: ./unit-test.sh
     full-test:
-<<<<<<< HEAD
-        container: cuaesd/aesd-autotest:assignment3
+        container: cuaesd/aesd-autotest:24-assignment5
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v2
@@ -28,35 +26,4 @@ jobs:
             run : git submodule update --init --recursive
           - name: Run full test
             run: ./full-test.sh
-=======
-jobs:
-    full-test:
-        container: cuaesd/aesd-autotest:24-assignment4-buildroot
-        runs-on: self-hosted
-        timeout-minutes: 120
-        steps:
-          - uses: actions/checkout@v2
-          - name: Checkout submodules
-            run: git submodule update --init --recursive
-          - uses: webfactory/ssh-agent@v0.5.3
-            with:
-                ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          - name: Run full test
-            env:
-              GIT_SSH_COMMAND: "ssh -o StrictHostKeyChecking=no"
-            run: ./full-test.sh
-          - name: Cleanup
-            if: always()
-            run: |
-              ssh-add -D
->>>>>>> buildroot-assignments-base/master
-=======
-        container: cuaesd/aesd-autotest:24-assignment5
-        runs-on: self-hosted
-        steps:
-          - uses: actions/checkout@v2
-          - name: Checkout submodules
-            run : git submodule update --init --recursive
-          - name: Run full test
-            run: ./full-test.sh
->>>>>>> assignments-base/assignment5
+
