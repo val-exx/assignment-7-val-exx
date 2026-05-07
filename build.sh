@@ -1,33 +1,37 @@
 #!/bin/bash
-#Script to build buildroot configuration
-#Author: Siddhant Jajoo
+# Script to build image for qemu.
+# Author: Siddhant Jajoo.
 
-source shared.sh
-
-EXTERNAL_REL_BUILDROOT=../base_external
 git submodule init
 git submodule sync
 git submodule update
 
-set -e 
-cd `dirname $0`
+# local.conf won't exist until this step on first execution
+source poky/oe-init-build-env
 
-if [ ! -e buildroot/.config ]
-then
-	echo "MISSING BUILDROOT CONFIGURATION FILE"
+CONFLINE="MACHINE = \"qemuarm64\""
 
-	if [ -e ${AESD_MODIFIED_DEFCONFIG} ]
-	then
-		echo "USING ${AESD_MODIFIED_DEFCONFIG}"
-		make -C buildroot defconfig BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT} BR2_DEFCONFIG=${AESD_MODIFIED_DEFCONFIG_REL_BUILDROOT}
-	else
-		echo "Run ./save_config.sh to save this as the default configuration in ${AESD_MODIFIED_DEFCONFIG}"
-		echo "Then add packages as needed to complete the installation, re-running ./save_config.sh as needed"
-		make -C buildroot defconfig BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT} BR2_DEFCONFIG=${AESD_DEFAULT_DEFCONFIG}
-	fi
+cat conf/local.conf | grep "${CONFLINE}" > /dev/null
+local_conf_info=$?
+
+if [ $local_conf_info -ne 0 ];then
+	echo "Append ${CONFLINE} in the local.conf file"
+	echo ${CONFLINE} >> conf/local.conf
+	
 else
-	echo "USING EXISTING BUILDROOT CONFIG"
-	echo "To force update, delete .config or make changes using make menuconfig and build again."
-	make -C buildroot BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT}
-
+	echo "${CONFLINE} already exists in the local.conf file"
 fi
+
+
+bitbake-layers show-layers | grep "meta-aesd" > /dev/null
+layer_info=$?
+
+if [ $layer_info -ne 0 ];then
+	echo "Adding meta-aesd layer"
+	bitbake-layers add-layer ../meta-aesd
+else
+	echo "meta-aesd layer already exists"
+fi
+
+set -e
+bitbake core-image-aesd

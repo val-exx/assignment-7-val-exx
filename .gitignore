@@ -1,20 +1,4 @@
-*.o
-<<<<<<< HEAD
-writer
-Test_*_Runner.c
-build/
-crosstool-ng
-aesd-build
-.vscode/
+build
+.vscode
+valgrind-out.txt
 test.sh.log
-<<<<<<< HEAD
-=======
-build/
-.vscode/
-*.log
->>>>>>> buildroot-assignments-base/master
-=======
-aesdsocket
-server/aesdsocket
-server/valgrind-out.txt
->>>>>>> assignments-base/assignment6
