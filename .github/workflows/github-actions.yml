@@ -18,9 +18,14 @@ jobs:
           - name: Run unit test
             run: ./unit-test.sh
     full-test:
+<<<<<<< HEAD
         container: cuaesd/aesd-autotest:24-assignment5-buildroot
         runs-on: ubuntu-latest
         timeout-minutes: 120
+=======
+        container: cuaesd/aesd-autotest:24-assignment6
+        runs-on: self-hosted
+>>>>>>> assignments-base/assignment6
         steps:
           - uses: actions/checkout@v2
           - name: Checkout submodules
