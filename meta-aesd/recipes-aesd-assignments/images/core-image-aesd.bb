@@ -1,4 +1,5 @@
 inherit core-image
+IMAGE_INSTALL += "aesd-assignments"
 #CORE_IMAGE_EXTRA_INSTALL += "aesd-assignments"
 CORE_IMAGE_EXTRA_INSTALL += "openssh"
 inherit extrausers
