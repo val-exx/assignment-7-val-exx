@@ -370,7 +370,12 @@ int main(int argc, char *argv[])
             return -1;
         }
 
-        chdir("/");
+        if (chdir("/") == -1) {
+        syslog(LOG_ERR, "chdir failed: %s", strerror(errno));
+        close(server_fd);
+        closelog();
+        return -1;
+        }
 
         close(STDIN_FILENO);
         close(STDOUT_FILENO);
