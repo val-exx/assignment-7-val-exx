@@ -25,6 +25,8 @@ static pthread_mutex_t thread_list_mutex = PTHREAD_MUTEX_INITIALIZER;
 static pthread_t timer_thread;
 static int timer_thread_started = 0;
 
+static volatile sig_atomic_t first_packet_received = 0;
+
 struct thread_data {
     pthread_t thread_id;
     int client_fd;
@@ -137,7 +139,7 @@ static void *timer_thread_func(void *arg)
             sleep(1);
         }
 
-        if (!stop) {
+        if (!stop && first_packet_received) {
             if (append_timestamp_to_file() == -1) {
                 syslog(LOG_ERR, "Failed to append timestamp");
             }
@@ -205,6 +207,7 @@ static int handle_client(int fd)
 
         while ((newline = strchr(packet, '\n')) != NULL) {
             size_t line_len = newline - packet + 1;
+            first_packet_received = 1;
 
             if (write_packet_and_send_file(fd, packet, line_len) == -1) {
                 free(packet);
