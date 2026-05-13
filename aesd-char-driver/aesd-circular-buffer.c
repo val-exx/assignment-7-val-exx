@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * @file aesd-circular-buffer.c
  * @brief Functions and data related to a circular buffer imlementation
@@ -96,3 +97,6 @@ void aesd_circular_buffer_init(struct aesd_circular_buffer *buffer)
 {
     memset(buffer,0,sizeof(struct aesd_circular_buffer));
 }
+=======
+
+>>>>>>> d98d9f82f055ce00710293578d8ac2090afcf49b
