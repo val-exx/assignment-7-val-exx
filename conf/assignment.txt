@@ -1,5 +1,0 @@
-<<<<<<< HEAD
-assignment7
-=======
-assignment6
->>>>>>> d98d9f82f055ce00710293578d8ac2090afcf49b
